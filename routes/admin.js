@@ -1,22 +1,21 @@
-const path = require('path'); 
-const express = require('express'); 
-const rootDir = require('../util/path'); 
-const router = express.Router(); 
-const books =[]; 
+const path = require('path');
 
-router.get('/add-book', (req, res, next) => {
-    res.render('add-book', {
-        pageTitle: 'Add book', 
-        path: '/admin/add-book', 
-        formsCSS: true, 
-        productCSS: true, 
-        activeAddProduct: true
-    });
-});
+const express = require('express');
 
-router.post('/add-product', (req, res, net) => {
-    books.push({title: req.body.title}); 
-    res.redirect('/'); 
-});
-exports.routes = router; 
-exports.books = books;
+const adminController = require('../controllers/admin');
+
+const router = express.Router();
+
+router.get('/add-book', adminController.getAddBook);
+
+router.get('/books', adminController.getBooks);
+
+router.post('/add-book', adminController.postAddBook);
+
+router.get('/edit-book/:bookId', adminController.getEditBook);
+
+router.post('/edit-book', adminController.postEditBook);
+
+router.post('/delete-book', adminController.postDeleteBook);
+
+module.exports = router;

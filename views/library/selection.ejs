@@ -1,0 +1,23 @@
+<%- include('../includes/head.ejs') %>
+    </head>
+
+    <body>
+        <%- include('../includes/navigation.ejs') %>
+        <main>
+            <% if (books.length > 0) { %>
+                <ul>
+                    <% books.forEach(p => { %>
+                        <li>
+                            <p><%= p.bookData.title %> (<%= p.qty %>)</p>
+                            <form action="/selection-delete-item" method="POST">
+                                <input type="hidden" value="<%= p.bookData.id %>" name="bookId">
+                                <button class="btn" type="submit">Delete</button>
+                            </form>
+                        </li>
+                    <% }) %>
+                </ul>
+            <% } else { %>
+                <h1>No Books in Selection!</h1>
+            <% } %>
+        </main>
+        <%- include('../includes/end.ejs') %>
